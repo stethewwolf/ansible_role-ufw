@@ -1,3 +1,52 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# tasks file for test
+- name: Ensure ufw is installed and enabled
+  apt:
+    name: ufw
+    state: present
+    update_cache: yes
+
+- name: Set default policy for input
+  community.general.ufw:
+    direction: incoming
+    policy: "{{ ufw_rules.Input.default_policy }}"
+  when: ufw_rules.Input.default_policy != ""
+
+- name: Set default policy for output
+  community.general.ufw:
+    direction: outgoing
+    policy: "{{ ufw_rules.Output.default_policy }}"
+  when: ufw_rules.Output.default_policy != ""
+
+- name: Apply input rules
+  loop: "{{ ufw_rules.Input.rules }}"
+  vars:
+    rule: "{{ item }}"
+  community.general.ufw:
+    rule: allow
+    direction: in
+    comment: "{{ rule.comment }}"
+    src: "{{ rule.src_hosts | join(',') if rule.src_hosts else omit }}"
+    dest: "{{ rule.dst_hosts | join(',') if rule.dst_hosts else omit }}"
+    src_port: "{{ rule.src_ports | join(',') if rule.src_ports else omit }}"
+    port: "{{ rule.dst_ports | join(',') if rule.dst_ports else omit }}"
+  when: rule is defined
+
+- name: Apply output rules
+  loop: "{{ ufw_rules.Output.rules }}"
+  vars:
+    rule: "{{ item }}"
+  community.general.ufw:
+    rule: allow
+    direction: out
+    comment: "{{ rule.comment }}"
+    src: "{{ rule.src_hosts | join(',') if rule.src_hosts else omit }}"
+    dest: "{{ rule.dst_hosts | join(',') if rule.dst_hosts else omit }}"
+    src_port: "{{ rule.src_ports | join(',') if rule.src_ports else omit }}"
+    port: "{{ rule.dst_ports | join(',') if rule.dst_ports else omit }}"
+  when: rule is defined
+
+- name: Enable ufw
+  community.general.ufw:
+    state: enabled
+
