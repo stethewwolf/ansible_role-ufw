@@ -9,17 +9,17 @@
 - name: Set default policy for input
   community.general.ufw:
     direction: incoming
-    policy: "{{ ufw_rules.Input.default_policy }}"
-  when: ufw_rules.Input.default_policy != ""
+    policy: "{{ ufw_rules.input.default_policy }}"
+  when: ufw_rules.input.default_policy != ""
 
 - name: Set default policy for output
   community.general.ufw:
     direction: outgoing
-    policy: "{{ ufw_rules.Output.default_policy }}"
-  when: ufw_rules.Output.default_policy != ""
+    policy: "{{ ufw_rules.output.default_policy }}"
+  when: ufw_rules.output.default_policy != ""
 
 - name: Apply input rules
-  loop: "{{ ufw_rules.Input.rules }}"
+  loop: "{{ ufw_rules.input.rules }}"
   vars:
     rule: "{{ item }}"
   community.general.ufw:
@@ -33,7 +33,7 @@
   when: rule is defined
 
 - name: Apply output rules
-  loop: "{{ ufw_rules.Output.rules }}"
+  loop: "{{ ufw_rules.output.rules }}"
   vars:
     rule: "{{ item }}"
   community.general.ufw:

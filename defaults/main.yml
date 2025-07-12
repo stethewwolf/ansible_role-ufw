@@ -1,9 +1,9 @@
 #SPDX-License-Identifier: MIT-0
 ---
 ufw_rules:
-  Input:
+  input:
     default_policy: "deny"
     rules: []
-  Output:
+  output:
     default_policy: "allow"
     rules: []
