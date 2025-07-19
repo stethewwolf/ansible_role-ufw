@@ -1,18 +1,16 @@
-UFW Role
-=========
+# UFW Role
 
 This role aims to manage basic firewall using ufw
 
-Requirements
-------------
+## Requirements
 
 Using a debian based distro supporting `ufw` package
 
-Role Variables
---------------
+## Role Variables
 
 UFW configuration structure:
-'''
+
+```
 ufw_rules:
   input:
     default_policy: "deny"
@@ -23,6 +21,7 @@ ufw_rules:
 ```
 
 Rule structure:
+
 ```
 - comment: ""
   src_hosts: []
@@ -31,13 +30,11 @@ Rule structure:
   dst_hosts: []
 ```
 
-Dependencies
-------------
+## Dependencies
 
 **None**
 
-Example Playbook
-----------------
+## Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
@@ -62,13 +59,6 @@ ufw_rules:
     rules: []
 ```
 
-License
--------
+## License
 
 MIT
-
-Author Information
-------------------
-
-* stethewwolf
-
