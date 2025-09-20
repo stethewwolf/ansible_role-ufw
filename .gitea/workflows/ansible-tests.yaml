@@ -1,0 +1,20 @@
+name: Ansible Validation
+run-name: ${{ gitea.actor }} is testing out Gitea Actions 🚀
+on: [push, manual]
+
+jobs:
+  Explore-Gitea-Actions:
+    runs-on: ansible-validate
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Lint using ansible
+        run: |
+           cd ${{ gitea.workspace }}
+           ansible-lint 
+      - name: Test using molecule
+        run: |
+          cd ${{ gitea.workspace }}
+          if [ -d molecule ]; then 
+            molecule test
+          fi

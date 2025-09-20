@@ -26,6 +26,7 @@
     rule: allow
     direction: in
     comment: "{{ rule.comment }}"
+    proto: "{{ rule.proto | default('tcp') }}"
     src: "{{ rule.src_hosts | join(',') if rule.src_hosts else omit }}"
     dest: "{{ rule.dst_hosts | join(',') if rule.dst_hosts else omit }}"
     src_port: "{{ rule.src_ports | join(',') if rule.src_ports else omit }}"
@@ -40,6 +41,7 @@
     rule: allow
     direction: out
     comment: "{{ rule.comment }}"
+    proto: "{{ rule.proto | default('tcp') }}"
     src: "{{ rule.src_hosts | join(',') if rule.src_hosts else omit }}"
     dest: "{{ rule.dst_hosts | join(',') if rule.dst_hosts else omit }}"
     src_port: "{{ rule.src_ports | join(',') if rule.src_ports else omit }}"
