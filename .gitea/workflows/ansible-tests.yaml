@@ -11,7 +11,7 @@ jobs:
       - name: Lint using ansible
         run: |
            cd ${{ gitea.workspace }}
-           ansible-lint 
+           ansible-lint .
       - name: Test using molecule
         run: |
           cd ${{ gitea.workspace }}
