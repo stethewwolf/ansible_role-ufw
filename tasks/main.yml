@@ -1,10 +1,10 @@
-#SPDX-License-Identifier: MIT-0
+# SPDX-License-Identifier: MIT-0
 ---
 - name: Ensure ufw is installed and enabled
-  apt:
+  ansible.builtin.apt:
     name: ufw
     state: present
-    update_cache: yes
+    update_cache: true
 
 - name: Set default policy for input
   community.general.ufw:
@@ -51,4 +51,3 @@
 - name: Enable ufw
   community.general.ufw:
     state: enabled
-

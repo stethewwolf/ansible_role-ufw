@@ -3,5 +3,5 @@
 exclude_paths:
   - .gitea/
   - .ansible-lint
-  - .pre-commit-hooks.yml
+  - .pre-commit-hooks.yaml
 
