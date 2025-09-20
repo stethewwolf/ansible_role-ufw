@@ -1,0 +1,24 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Check file exists
+      stat:
+        path: /tmp/hello.txt
+      register: hello_file
+
+    - name: Assert file exists
+      assert:
+        that:
+          - hello_file.stat.exists
+          - hello_file.stat.isreg
+
+    - name: Check file content
+      slurp:
+        path: /tmp/hello.txt
+      register: hello_content
+
+    - name: Assert file contains "Hello World"
+      assert:
+        that:
+          - hello_content.content | b64decode | trim == "Hello World"
