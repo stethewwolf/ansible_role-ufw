@@ -3,3 +3,21 @@
   hosts: all
   roles:
     - role: ../..
+      vars:
+        ufw_rules:
+          input:
+            default_policy: "deny"
+            rules:
+              - comment: "Allow SSH"
+                src_ports: []
+                dst_ports: [22]
+                src_hosts: []
+                dst_hosts: []
+              - comment: "Allow HTTP from LAN"
+                src_hosts: ["192.168.1.0/24"]
+                dst_ports: [80]
+                src_ports: []
+                dst_hosts: []
+          output:
+            default_policy: "allow"
+            rules: []
