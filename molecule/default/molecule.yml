@@ -5,9 +5,7 @@ driver:
   name: podman
 platforms:
   - name: instance
-    image: "docker.io/debian:stable"
-    privileged: true
-    pre_build_image: true
+    image: "docker.io/library/debian:stable"
 provisioner:
   name: ansible
   playbooks:
